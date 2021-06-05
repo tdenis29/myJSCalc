@@ -1,12 +1,9 @@
-
-
 //Vairables
 const numBtns = document.querySelectorAll("#numBtn")
 const actionBtns = document.querySelectorAll('#actionBtn')
 const display = document.getElementById('screen');
 const expression = document.getElementById("topscreen");
-console.log(numBtns)
-console.log(actionBtns)
+
 
 //event listener for btns or use bubbling on parent? or nested event listener? for input?
 numBtns.forEach(button => {
@@ -31,10 +28,11 @@ numBtns.forEach(button => {
     }}); 
   })
 
-// add event listener ? 
+// i was trying to this ALL in the above event listener like a crazy person but ended up coding like a crazy person anyways
 actionBtns.forEach(button => {
   button.addEventListener('click', e => {
     const key = e.target;
+    //if expression is empty do this {} else {}.....
     const keyContent = key.textContent;
     if(key.dataset.action == "add" ||
       key.dataset.action == "subtract" ||
@@ -65,6 +63,7 @@ function operate(a, b, operator){
     } else if (operator === "-"){
         return subtract(a,b)
     } else if (operator === "*"){
+        
         return multiply(a,b)
     } else if (operator === "/"){
         return divide(a,b)
@@ -74,12 +73,11 @@ function operate(a, b, operator){
 // Basic Functions
 
 const add = function(a,b) {
-  
 	return parseInt(a) + parseInt(b);
 };
 
 const subtract = function(a, b) {
-	return  a - b;
+	return  parseInt(a) - parseInt(b);
 };
 const divide = function(a,b){
     return  a / b;
@@ -93,7 +91,7 @@ const sum = function(arr) {
 };
 
 const multiply = function(arr) {
-  return  arr.reduce((a, b)=>  a*b, 1)
+  return  a*b 
 };
 
 const power = function(a, b) {
