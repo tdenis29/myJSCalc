@@ -7,11 +7,38 @@
         <title></title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="styles.css">
+        <link rel="stylesheet" href="styles.css"> 
     </head>
     <body>
-      <h1>myJSCalc</h1>
-        <p>The Odin Project...project</p>
+        <div>
+            <h1>myJSCalc</h1>
+                <p>The Odin Project...project</p>
+        </div>
+
+        <div class="calculator">
+            <div class="topscreen" id="topscreen" data-screen=""></div>
+            <div class="screen" id="screen" data-screen="">0</div>
+            <div class="buttons-grid" id="buttons-grid">
+              <button class="btn btn-red span-2" data-action="clear">CLEAR</button>
+              <button class="btn btn-blue span-2" data-action="delete">DELETE</button>
+              <button class="btn" data-number="">7</button>
+              <button class="btn" data-number="">8</button>
+              <button class="btn" data-number="">9</button>
+              <button class="btn" data-action="divide">÷</button>
+              <button class="btn" data-number="">4</button>
+              <button class="btn" data-number="">5</button>
+              <button class="btn" data-number="">6</button>
+              <button class="btn" data-action="multiply">×</button>
+              <button class="btn" data-number="">1</button>
+              <button class="btn" data-number="">2</button>
+              <button class="btn" data-number="">3</button>
+              <button class="btn" data-action="subtract">−</button>
+              <button class="btn" data-point="decimal">.</button>
+              <button class="btn" data-number="">0</button>
+              <button class="btn" data-action="equals">=</button>
+              <button class="btn" data-action="add">+</button>
+            </div>
+          </div>
         
         <script src="app.js" async defer></script>
     </body>
