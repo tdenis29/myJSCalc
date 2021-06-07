@@ -3,7 +3,7 @@ const numBtns = document.querySelectorAll("#numBtn")
 const actionBtns = document.querySelectorAll('#actionBtn')
 const display = document.getElementById('screen');
 const expression = document.getElementById("topscreen");
-
+const operas = ["+", "-", "*", "/"]
 
 //event listener for btns or use bubbling on parent? or nested event listener? for input?
 numBtns.forEach(button => {
@@ -49,7 +49,6 @@ actionBtns.forEach(button => {
      a = display.textContent
     //grab first number as a global for use in helper function
     //update top-screen with the number and operator 
-    
     //this key Content is referring to the operator that was clicked.
     expression.textContent += a + keyContent;
     //operator must be global?
@@ -60,8 +59,21 @@ actionBtns.forEach(button => {
     //if equals is pushed we can assume the second number has been entered and ready for evaluation
     if(e.target.dataset.action == "equals"){
       //if there is no a and there is 0 in the display we can assume nothing has been entered and equals should not run 
-      if(display.textContent == 0){
+      if(display.textContent === 0){
         return 
+      } else if (
+        expression.textContent.includes("+") && expression.textContent.includes("-") || 
+        expression.textContent.includes("*") && expression.textContent.includes("/") ||
+        expression.textContent.includes("+") && expression.textContent.includes("*") && 
+        expression.textContent.includes("-") && expression.textContent.includes("/") 
+
+        ){
+        
+        expression.textContent += display.textContent
+        answerThis = expression.textContent.toString();
+        console.log(answerThis)
+        result = eval(answerThis);
+        display.textContent = result;
       } else {
       //new displayedNum to update bottom display
       displayedNum = display.textContent
@@ -69,6 +81,7 @@ actionBtns.forEach(button => {
       b = displayedNum
       //update top screen with second number plus equals
       expression.textContent += b + "=";
+      console.log(expression)
       //call operate by passing in the numbers and operator and save its return value to result
       result = operate(a, b, operator) 
       //display the result
