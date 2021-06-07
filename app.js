@@ -18,10 +18,13 @@ numBtns.forEach(button => {
         const keyContent = key.textContent;
         //display on screen 
         displayedNum = display.textContent;
+        //if not clicing on an operator or point
         if (!action) {
+          //if the is the first number to be typed replace zero in the display 
           if (displayedNum === '0') {
             display.textContent = keyContent
           } else {
+            //will continuously add the typed numbers to display until the first operator is clicked
               display.textContent = displayedNum + keyContent
             }
         }
@@ -29,31 +32,49 @@ numBtns.forEach(button => {
   })
 
 // i was trying to this ALL in the above event listener like a crazy person but ended up coding like a crazy person anyways
+//to chain to gether operands im thinking of calling evaluate on expression.
 actionBtns.forEach(button => {
   button.addEventListener('click', e => {
     const key = e.target;
-    //if expression is empty do this {} else {}.....
     const keyContent = key.textContent;
+     //if expression is empty do happy math {} else if the expression contains multiple operators {}.....
     if(key.dataset.action == "add" ||
       key.dataset.action == "subtract" ||
       key.dataset.action == 'multiply' ||
       key.dataset.action == 'divide' 
     )
     {
-    displayedNum = display.textContent
-     a = displayedNum 
-     expression.textContent = a + keyContent;
+    //define new displayedNum in the scope of this function
+     a = display.textContent
+    //grab first number as a global for use in helper function
+    //update top-screen with the number and operator 
+    //this key Content is referring to the operator that was clicked.
+    expression.textContent += a + keyContent;
+    //operator must be global?
      operator = keyContent;
+     //after written to expression clear dislay for new typing
      display.textContent = "";
     }
+    //if equals is pushed we can assume the second number has been entered and ready for evaluation
     if(e.target.dataset.action == "equals"){
+      //if there is no a and there is 0 in the display we can assume nothing has been entered and equals should not run 
+      if(display.textContent == 0){
+        return 
+      } else {
+      //new displayedNum to update bottom display
       displayedNum = display.textContent
+      //grab second number as a global variable to pass into the operate() then helper() functions
       b = displayedNum
-      expression.textContent += b;
-      display.textContent = operate(a, b, operator) 
-    }
+      //update top screen with second number plus equals
+      expression.textContent += b + "=";
+      //call operate by passing in the numbers and operator and save its return value to result
+      result = operate(a, b, operator) 
+      //display the result
+      display.textContent = result;
+    }}
   })
 })
+//clear button 
 
 
 //operand function
@@ -63,7 +84,6 @@ function operate(a, b, operator){
     } else if (operator === "-"){
         return subtract(a,b)
     } else if (operator === "*"){
-        
         return multiply(a,b)
     } else if (operator === "/"){
         return divide(a,b)
@@ -90,7 +110,7 @@ const sum = function(arr) {
   return total
 };
 
-const multiply = function(arr) {
+const multiply = function() {
   return  a*b 
 };
 
