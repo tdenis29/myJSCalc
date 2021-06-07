@@ -37,6 +37,7 @@ actionBtns.forEach(button => {
   button.addEventListener('click', e => {
     const key = e.target;
     const keyContent = key.textContent;
+    
      //if expression is empty do happy math {} else if the expression contains multiple operators {}.....
     if(key.dataset.action == "add" ||
       key.dataset.action == "subtract" ||
@@ -48,6 +49,7 @@ actionBtns.forEach(button => {
      a = display.textContent
     //grab first number as a global for use in helper function
     //update top-screen with the number and operator 
+    
     //this key Content is referring to the operator that was clicked.
     expression.textContent += a + keyContent;
     //operator must be global?
@@ -71,7 +73,13 @@ actionBtns.forEach(button => {
       result = operate(a, b, operator) 
       //display the result
       display.textContent = result;
-    }}
+    }}  if(e.target.dataset.action == "clear"){
+      a = undefined;
+      b = undefined;
+      result = undefined;
+      expression.textContent = "";
+      display.textContent = 0;
+    }
   })
 })
 //clear button 
