@@ -2,6 +2,7 @@
 //Vairables
 const btns = document.getElementById('buttons-grid');
 const display = document.getElementById('screen');
+let displayValue = null;
 let operand1 = null
 let operand2 = null
 let operator1 = null
@@ -41,12 +42,8 @@ btns.addEventListener('click', e => {
 
 // Update Display
 function updateDisplay(keyContent){
- let displayedNum = display.textContent;
- if(display.textContent == 0){
-  display.textContent = keyContent;
- } else {
-  display.textContent = displayedNum + keyContent;
- }
+
+
 }
 
 // Backspace
