@@ -6,6 +6,7 @@ let operand1 = null
 let operand2 = null
 let operator1 = null
 let operator2 = null
+let result = null
 
 btns.addEventListener('click', e => {
   const key = e.target;
@@ -13,48 +14,40 @@ btns.addEventListener('click', e => {
   const number = key.dataset.number;
   const keyContent = key.textContent;
   // first click
-  if(!action && operand1 == null){
+  if(!action && operand1 === null){
     updateDisplay(keyContent);
   }
   // second click on operator then set operand1 and write to display
-  if(key.classList.contains("operator") && operand1 == null){
+  if(operand1 === null && operand2 === null && key.classList.contains("operator") ){
     operand1 = display.textContent;
-    updateDisplay(keyContent);
-    operator = display.textContent;
+    operator = keyContent
+
   }
   //third click to set operation and second operand
-  if(operand1 !== null && !action){
+  if(operand1 != null && !action){
     updateDisplay(keyContent);
     operand2 = display.textContent;
   }
   // fourth click
-  if(keyContent === "="){
-    console.log(operator)
-    console.log(operand1)
-    console.log(operand2)
+  if(keyContent === "=" && display.textContent != 0){
+   result = operate(operand1, operand2, operator)
+   display.textContent = result;
+  }
+  //fifth click for chaining operators
+  if(operand1 !== null && operand2 !== null && key.classList.contains('operator')){
+    result = operate(operand1,operand2, operator)
+ 
   }
 })
 
-
-
-
-// handle operator
-function handleOperator(){
-
-}
-
-// Operand selected
-function handleOperand(){
- 
-}
 
 // Update Display
 function updateDisplay(keyContent){
  let displayedNum = display.textContent;
  if(display.textContent == 0){
   display.textContent = keyContent;
- } else{
-  display.textContent = keyContent;
+ } else {
+  display.textContent = displayedNum + keyContent;
  }
 }
 
@@ -69,15 +62,15 @@ function clearData(){
 }
 
 //operand function
-function operate(a, b, operator){
+function operate(operand2, operand1, operator){
     if(operator === "+"){
-        return parseInt(a) + parseInt(b);
+        return parseInt(operand1) + parseInt(operand2);
     } else if (operator === "-"){
-        return parseInt(a) - parseInt(b);
+        return parseInt(operand1) - parseInt(operand2);
     } else if (operator === "*"){
-        return a * b;
+        return parseInt(operand1) * parseInt(operand2);
     } else if (operator === "/"){
-        return a / b;
+        return parseInt(operand1) / parse(operand2);
     }
 }
 
