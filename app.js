@@ -21,7 +21,6 @@ btns.addEventListener('click', e => {
   if(operand1 === null && operand2 === null && key.classList.contains("operator") ){
     operand1 = display.textContent;
     operator = keyContent
-
   }
   //third click to set operation and second operand
   if(operand1 != null && !action){
@@ -36,7 +35,6 @@ btns.addEventListener('click', e => {
   //fifth click for chaining operators
   if(operand1 !== null && operand2 !== null && key.classList.contains('operator')){
     result = operate(operand1,operand2, operator)
- 
   }
 })
 
