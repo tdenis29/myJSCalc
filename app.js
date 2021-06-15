@@ -2,12 +2,26 @@
 //Vairables
 const btns = document.getElementById('buttons-grid');
 const display = document.getElementById('screen');
-let displayValue = null;
+let displayValue = 0;
 let operand1 = null
 let operand2 = null
-let operator1 = null
+let operator = null
 let operator2 = null
 let result = null
+
+
+function updateDisplay(keyContent,result = null){
+  if(display.textContent === "0"){
+  display.textContent = Number(displayValue)
+  }
+  if(result !== null){
+    display.textContent = Number(result)
+  } else{
+    display.textContent = Number(displayValue);
+  }
+}
+
+updateDisplay()
 
 btns.addEventListener('click', e => {
   const key = e.target;
@@ -15,57 +29,102 @@ btns.addEventListener('click', e => {
   const number = key.dataset.number;
   const keyContent = key.textContent;
   // first click
-  if(!action && operand1 === null){
-    updateDisplay(keyContent);
+  if(key.classList.contains('number') && operand1 === null){
+    handleNumber(keyContent)
+    updateDisplay()
   }
   // second click on operator then set operand1 and write to display
-  if(operand1 === null && operand2 === null && key.classList.contains("operator") ){
-    operand1 = display.textContent;
-    operator = keyContent
+  if(key.classList.contains("operator") && key.textContent !== "=" && operand2 === null){
+    handleOperator(keyContent)
+   
   }
   //third click to set operation and second operand
   if(operand1 != null && !action){
-    updateDisplay(keyContent);
-    operand2 = display.textContent;
+    handleNumber(keyContent)
+    updateDisplay()
+    operand2 = Number(displayValue)
+    parseInt(operand2)
   }
   // fourth click
-  if(keyContent === "=" && display.textContent != 0){
-   result = operate(operand1, operand2, operator)
-   display.textContent = result;
+  if(keyContent === "=" && display.textContent !== 0){
+    console.log(typeof operand1) 
+    console.log(typeof operand2)
+    parseInt(operand1)
+    Number(operand1)
+    parseInt(operand1)
+    parseInt(operand2)
+    console.log(typeof operand1) 
+    console.log(typeof operand2)
+    result = operate(operand1, operand2,operator)
+    displayValue = Number(result) 
+    updateDisplay();
+  }
+  if(keyContent === "=" && display.textContent === 0){
+    displayValue = "I'll divide you by zero";
+    updateDisplay();
   }
   //fifth click for chaining operators
-  if(operand1 !== null && operand2 !== null && key.classList.contains('operator')){
-    result = operate(operand1,operand2, operator)
+  if(operand1 !== null && operand2 !== null && result === null && key.classList.contains('operator')){
+    console.log(typeof operand1) 
+    console.log(typeof operand2)
+    result = operate(operand1,operand2,operator);
+    displayValue = result
+    updateDisplay()
+    handleOperator(keyContent)
+    operand1 = result;
+    operand2 = null;
+    result = null;
+
+  }
+  if(key.dataset.action === "clear"){
+    clearData()
   }
 })
 
-
-// Update Display
-function updateDisplay(keyContent){
-
-
+function handleNumber(keyContent){
+  //firstclick
+  if (display.textContent === "0") {
+   displayValue = keyContent
+} else if (display.textContent == operand1) {
+  displayValue = keyContent;
+} else{
+  displayValue += keyContent
+}
+}
+function handleOperator(keyContent){
+  //if first click on operator after entring number
+  if(operand1 === null){
+  operand1 = parseInt(displayValue);
+  operator = keyContent;
+} else if(operand1 !== null){
+  operator = keyContent
+}
 }
 
 // Backspace
 function backSpace(){
 
 }
-
 //clear button 
 function clearData(){
-
+  operand1 = null 
+  operand2 = null
+  poperator = null
+  displayValue = 0;
+  result = null;
+  updateDisplay()
 }
 
-//operand function
-function operate(operand2, operand1, operator){
+//operate function
+function operate(operand1, operand2, operator){
     if(operator === "+"){
         return parseInt(operand1) + parseInt(operand2);
-    } else if (operator === "-"){
+    } else if (operator == "-"){
         return parseInt(operand1) - parseInt(operand2);
     } else if (operator === "*"){
         return parseInt(operand1) * parseInt(operand2);
     } else if (operator === "/"){
-        return parseInt(operand1) / parse(operand2);
+        return parseInt(operand1) / parseInt(operand2);
     }
 }
 
