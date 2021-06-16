@@ -1,4 +1,3 @@
-
 //Vairables
 const btns = document.getElementById('buttons-grid');
 const display = document.getElementById('screen');
@@ -6,23 +5,18 @@ let displayValue = 0;
 let operand1 = null
 let operand2 = null
 let operator = null
-let operator2 = null
 let result = null
-
 
 function updateDisplay(keyContent,result = null){
   if(display.textContent === "0"){
-  display.textContent = Number(displayValue)
+  display.textContent = displayValue
   }
   if(result !== null){
-    display.textContent = Number(result)
+    display.textContent = result
   } else{
-    display.textContent = Number(displayValue);
+    display.textContent = displayValue;
   }
 }
-
-
-
 btns.addEventListener('click', e => {
   const key = e.target;
   const keyContent = key.textContent;
@@ -34,73 +28,84 @@ btns.addEventListener('click', e => {
   // second click on operator then set operand1 and write to display
   if(key.classList.contains("operator") && key.textContent !== "=" && operand2 === null){
     handleOperator(keyContent)
-   
   }
   //third click to set operation and second operand
-  if(operand1 != null && key.classList.contains("number")){
+  if(operand1 !== null && key.classList.contains("number")){
     handleNumber(keyContent)
-    updateDisplay()
-    operand2 = Number(displayValue)
+    updateDisplay();
+    operand2 = displayValue;
     parseInt(operand2)
   }
   // fourth click
-  if(keyContent === "=" && display.textContent !== 0){
-    console.log(typeof operand1) 
-    console.log(typeof operand2)
-    parseInt(operand1)
-    parseInt(operand1)
-    parseInt(operand2)
-    console.log(typeof operand1) 
-    console.log(typeof operand2)
+  if(keyContent === "=" && display.textContent !== "0"){
     result = operate(operand1, operand2,operator)
-    displayValue = Number(result) 
+    resultRounded = result.toFixed(9)
+    displayValue = resultRounded;
     updateDisplay();
   }
-  if(keyContent === "=" && display.textContent === 0){
+  if(keyContent === "=" && operand2 === "0"){
     displayValue = "I'll divide you by zero";
     updateDisplay();
   }
   //fifth click for chaining operators
   if(operand1 !== null && operand2 !== null && result === null && key.classList.contains('operator')){
-    console.log(typeof operand1) 
-    console.log(typeof operand2)
     result = operate(operand1,operand2,operator);
-    displayValue = result
+    resultRounded = result.toFixed(3)
+    displayValue = resultRounded;
     updateDisplay()
     handleOperator(keyContent)
     operand1 = result;
     operand2 = null;
     result = null;
-
   }
-  if(key.dataset.action === "clear"){
+  //if clear is picked
+  if(key.textContent === "CLEAR"){
     clearData()
   }
+  if(keyContent === "." && display.innerHTML.indexOf(".") === -1){
+    doeeDecimal();
+    updateDisplay();
+  }
+  if(keyContent === "DELETE"){
+    backSpace();
+    updateDisplay()
+  }
 })
-
 function handleNumber(keyContent){
   //firstclick
   if (display.textContent === "0") {
    displayValue = keyContent
 } else if (display.textContent == operand1) {
   displayValue = keyContent;
-} else{
+}  else {
   displayValue += keyContent
 }
 }
 function handleOperator(keyContent){
   //if first click on operator after entring number
   if(operand1 === null){
-  operand1 = parseInt(displayValue);
+  operand1 = displayValue;
   operator = keyContent;
 } else if(operand1 !== null){
   operator = keyContent
-}
+}}
+function doeeDecimal(){
+  if(display.innerHTML.includes(".")){
+    return
+  } else {
+    displayValue = display.textContent + "."
+  }
 }
 
 // Backspace
 function backSpace(){
-
+ if(operand1 === null){
+   displayValue = 0;
+ }
+ if(operand1 !== null){
+   operator = null
+   displayValue = operand1;
+ }
 }
 //clear button 
 function clearData(){
@@ -115,22 +120,15 @@ function clearData(){
 //operate function
 function operate(operand1, operand2, operator){
     if(operator === "+"){
-        return parseInt(operand1) + parseInt(operand2);
+        return parseFloat(operand1) + parseFloat(operand2);
     } else if (operator == "➖"){
-        return parseInt(operand1) - parseInt(operand2);
+        return parseFloat(operand1) - parseFloat(operand2);
     } else if (operator === "*"){
-        return parseInt(operand1) * parseInt(operand2);
+        return parseFloat(operand1) * parseFloat(operand2);
     } else if (operator === "/"){
-        return parseInt(operand1) / parseInt(operand2);
+        return parseFloat(operand1) / parseFloat(operand2);
     }
 }
-
-
-
-
-
-
-
 // Basic Functions
 
 // const add = function(a,b) {
