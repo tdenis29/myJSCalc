@@ -21,12 +21,10 @@ function updateDisplay(keyContent,result = null){
   }
 }
 
-updateDisplay()
+
 
 btns.addEventListener('click', e => {
   const key = e.target;
-  const action = key.dataset.action;
-  const number = key.dataset.number;
   const keyContent = key.textContent;
   // first click
   if(key.classList.contains('number') && operand1 === null){
@@ -39,7 +37,7 @@ btns.addEventListener('click', e => {
    
   }
   //third click to set operation and second operand
-  if(operand1 != null && !action){
+  if(operand1 != null && key.classList.contains("number")){
     handleNumber(keyContent)
     updateDisplay()
     operand2 = Number(displayValue)
