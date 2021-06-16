@@ -50,7 +50,6 @@ btns.addEventListener('click', e => {
     console.log(typeof operand1) 
     console.log(typeof operand2)
     parseInt(operand1)
-    Number(operand1)
     parseInt(operand1)
     parseInt(operand2)
     console.log(typeof operand1) 
@@ -119,7 +118,7 @@ function clearData(){
 function operate(operand1, operand2, operator){
     if(operator === "+"){
         return parseInt(operand1) + parseInt(operand2);
-    } else if (operator == "-"){
+    } else if (operator == "➖"){
         return parseInt(operand1) - parseInt(operand2);
     } else if (operator === "*"){
         return parseInt(operand1) * parseInt(operand2);
