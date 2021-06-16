@@ -96,7 +96,6 @@ function doeeDecimal(){
     displayValue = display.textContent + "."
   }
 }
-
 // Backspace
 function backSpace(){
  if(operand1 === null){
