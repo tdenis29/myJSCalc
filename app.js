@@ -2,17 +2,17 @@
 const btns = document.getElementById('buttons-grid');
 const display = document.getElementById('screen');
 let displayValue = 0;
-let operand1 = null
-let operand2 = null
-let operator = null
-let result = null
+let operand1 = null;
+let operand2 = null;
+let operator = null;
+let result = null;
 
 function updateDisplay(keyContent,result = null){
   if(display.textContent === "0"){
-  display.textContent = displayValue
+  display.textContent = displayValue;
   }
   if(result !== null){
-    display.textContent = result
+    display.textContent = result;
   } else{
     display.textContent = displayValue;
   }
@@ -20,26 +20,26 @@ function updateDisplay(keyContent,result = null){
 btns.addEventListener('click', e => {
   const key = e.target;
   const keyContent = key.textContent;
-  // first click
+  // first click on number
   if(key.classList.contains('number') && operand1 === null){
-    handleNumber(keyContent)
-    updateDisplay()
+    handleNumber(keyContent);
+    updateDisplay();
   }
   // second click on operator then set operand1 and write to display
   if(key.classList.contains("operator") && key.textContent !== "=" && operand2 === null){
-    handleOperator(keyContent)
+    handleOperator(keyContent);
   }
   //third click to set operation and second operand
   if(operand1 !== null && key.classList.contains("number")){
     handleNumber(keyContent)
     updateDisplay();
     operand2 = displayValue;
-    parseInt(operand2)
   }
   // fourth click
   if(keyContent === "=" && display.textContent !== "0"){
     result = operate(operand1, operand2,operator)
-    resultRounded = result.toFixed(9)
+    resultRounded = result.toFixed(3)
+    //clean decimal points here
     displayValue = resultRounded;
     updateDisplay();
   }
@@ -50,17 +50,17 @@ btns.addEventListener('click', e => {
   //fifth click for chaining operators
   if(operand1 !== null && operand2 !== null && result === null && key.classList.contains('operator')){
     result = operate(operand1,operand2,operator);
-    resultRounded = result.toFixed(3)
+    resultRounded = result.toFixed(3);
     displayValue = resultRounded;
-    updateDisplay()
-    handleOperator(keyContent)
+    updateDisplay();
+    handleOperator(keyContent);
     operand1 = result;
     operand2 = null;
     result = null;
   }
   //if clear is picked
   if(key.textContent === "CLEAR"){
-    clearData()
+    clearData();
   }
   if(keyContent === "." && display.innerHTML.indexOf(".") === -1){
     doeeDecimal();
@@ -68,17 +68,17 @@ btns.addEventListener('click', e => {
   }
   if(keyContent === "DELETE"){
     backSpace();
-    updateDisplay()
+    updateDisplay();
   }
 })
 function handleNumber(keyContent){
   //firstclick
   if (display.textContent === "0") {
-   displayValue = keyContent
+   displayValue = keyContent;
 } else if (display.textContent == operand1) {
   displayValue = keyContent;
 }  else {
-  displayValue += keyContent
+  displayValue += keyContent;
 }
 }
 function handleOperator(keyContent){
@@ -87,13 +87,13 @@ function handleOperator(keyContent){
   operand1 = displayValue;
   operator = keyContent;
 } else if(operand1 !== null){
-  operator = keyContent
+  operator = keyContent;
 }}
 function doeeDecimal(){
   if(display.innerHTML.includes(".")){
     return
   } else {
-    displayValue = display.textContent + "."
+    displayValue = display.textContent + ".";
   }
 }
 // Backspace
@@ -102,18 +102,22 @@ function backSpace(){
    displayValue = 0;
  }
  if(operand1 !== null){
-   operator = null
+   operator = null;
+   displayValue = operand1;
+   operand2 = null;
+ }
+ if(operand2 === null){
    displayValue = operand1;
  }
 }
 //clear button 
 function clearData(){
-  operand1 = null 
-  operand2 = null
-  poperator = null
+  operand1 = null; 
+  operand2 = null;
+  poperator = null;
   displayValue = 0;
   result = null;
-  updateDisplay()
+  updateDisplay();
 }
 
 //operate function
