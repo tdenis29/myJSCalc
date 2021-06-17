@@ -38,7 +38,7 @@ btns.addEventListener('click', e => {
   // fourth click
   if(keyContent === "=" && display.textContent !== "0"){
     result = operate(operand1, operand2,operator)
-    resultRounded = result.toFixed(3)
+    resultRounded = result.toFixed(2)
     //clean decimal points here
     displayValue = resultRounded;
     updateDisplay();
@@ -119,7 +119,6 @@ function clearData(){
   result = null;
   updateDisplay();
 }
-
 //operate function
 function operate(operand1, operand2, operator){
     if(operator === "+"){

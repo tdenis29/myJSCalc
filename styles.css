@@ -1,17 +1,44 @@
+
+h1{
+    font-size: 2.5rem;
+    font-family: "Cinzel", Cursive;
+    text-align: center;
+}
+p{
+    font-size: 1.5rem;
+    font-family: "Fauna One", serif;
+    text-align: center;;
+}
 .calculator{
-    width: 50%;
+    width: 40%;
     margin: 0 auto;
     display: flex;
     flex-direction: column;
+    background-color: black;
+    border-radius: 1rem;
+}
+.calculator::before{
+    content: ""
+}
+.screen{
+    margin: .5rem;
+    border-radius: 1rem;
 }
 .buttons-grid{
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     grid-template-rows: repeat(5, 1fr);
-    grid-gap: 1rem;
+    grid-gap: .5rem;
+    background-color: black;
+    margin: .5rem;
+    border: none;
+    cursor: pointer;
 }
 .btn {
     padding: 1rem; 
+    font-size: 1.4rem;
+    border-radius: 1rem;
+    cursor: pointer;
 }
 body > div > div.buttons-grid > button.btn.btn-red.span-2{
     grid-column-start: 1;
@@ -21,13 +48,14 @@ body > div > div.buttons-grid > button.btn.btn-blue.span-2{
     grid-column-start: 3;
     grid-column-end: 5;
 }
-.topscreen{
-    background-color: lightgrey;
-    color: white;
-    height: 4rem;
-    font-size: 3rem;
-    text-align: left;
-    margin-bottom: 1.5rem;
+#buttons-grid > button:nth-child(17){
+    background-color: orange;;
+}
+.btn.number{
+    background-color: grey;
+}
+.btn.operator{
+    background-color: lightseagreen;
 }
 
 .screen{
