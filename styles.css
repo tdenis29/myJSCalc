@@ -39,6 +39,7 @@ p{
     font-size: 1.4rem;
     border-radius: 1rem;
     cursor: pointer;
+    font-family: "Fauna One", serif;
 }
 body > div > div.buttons-grid > button.btn.btn-red.span-2{
     grid-column-start: 1;
