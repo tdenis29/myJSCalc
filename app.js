@@ -52,8 +52,8 @@ btns.addEventListener('click', e => {
   }
     updateDisplay();
   }
-  if(keyContent === "=" && operand2 === "0"){
-    displayValue = "I'll divide you by zero";
+  if(keyContent === "=" && operand2 === "0" || keyContent === "=" && operand1 === null){
+    displayValue = "First Time?";
     updateDisplay();
   }
   //fifth click for chaining operators
@@ -129,6 +129,7 @@ function backSpace(){
  if(operand2 === null && operand1 !== null){
    displayValue = operand1;
  }
+ 
 }
 //clear button 
 function clearData(){
