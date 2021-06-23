@@ -8,6 +8,7 @@ let operator = null;
 let result = null;
 
 function updateDisplay(keyContent,result = null){
+
   if(display.textContent === "0"){
   display.textContent = displayValue;
   }
@@ -106,7 +107,7 @@ function backSpace(){
    displayValue = operand1;
    operand2 = null;
  }
- if(operand2 === null){
+ if(operand2 === null && operand1 !== null){
    displayValue = operand1;
  }
 }
