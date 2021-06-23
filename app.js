@@ -8,7 +8,6 @@ let operator = null;
 let result = null;
 
 function updateDisplay(keyContent,result = null){
-
   if(display.textContent === "0"){
   display.textContent = displayValue;
   }
@@ -30,18 +29,27 @@ btns.addEventListener('click', e => {
   if(key.classList.contains("operator") && key.textContent !== "=" && operand2 === null){
     handleOperator(keyContent);
   }
+  if(operand1 !== null && key.classList.contains("decimal")){
+    handleNumber(keyContent)
+    updateDisplay();
+  }
   //third click to set operation and second operand
   if(operand1 !== null && key.classList.contains("number")){
     handleNumber(keyContent)
-    updateDisplay();
     operand2 = displayValue;
+    updateDisplay();
+    
   }
   // fourth click
   if(keyContent === "=" && display.textContent !== "0"){
     result = operate(operand1, operand2,operator)
-    resultRounded = result.toFixed(2)
-    //clean decimal points here
+    result = operate(operand1,operand2,operator);
+    if(Number.isInteger(result)){
+      displayValue = result;
+    } else {
+    resultRounded = result.toFixed(3);
     displayValue = resultRounded;
+  }
     updateDisplay();
   }
   if(keyContent === "=" && operand2 === "0"){
@@ -51,8 +59,12 @@ btns.addEventListener('click', e => {
   //fifth click for chaining operators
   if(operand1 !== null && operand2 !== null && result === null && key.classList.contains('operator')){
     result = operate(operand1,operand2,operator);
+    if(Number.isInteger(result)){
+      displayValue = result;
+    } else {
     resultRounded = result.toFixed(3);
     displayValue = resultRounded;
+  }
     updateDisplay();
     handleOperator(keyContent);
     operand1 = result;
@@ -72,6 +84,9 @@ btns.addEventListener('click', e => {
     updateDisplay();
   }
 })
+function isInt(n) {
+  return n % 1 === 0;
+}
 function handleNumber(keyContent){
   //firstclick
   if (display.textContent === "0") {
@@ -87,12 +102,16 @@ function handleOperator(keyContent){
   if(operand1 === null){
   operand1 = displayValue;
   operator = keyContent;
+  displayValue = keyContent;
 } else if(operand1 !== null){
   operator = keyContent;
 }}
 function doeeDecimal(){
-  if(display.innerHTML.includes(".")){
-    return
+  if(operand1 !== null && operator !== null){
+    displayValue = display.textContent + "."
+  }
+  if(display.innerHTML.includes(".") < 2){
+    displayValue = display.textContent + ".";
   } else {
     displayValue = display.textContent + ".";
   }
