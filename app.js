@@ -57,7 +57,7 @@ btns.addEventListener('click', e => {
     updateDisplay();
   }
   //fifth click for chaining operators
-  if(operand1 !== null && operand2 !== null && result === null && key.classList.contains('operator')){
+  if(operand1 !== null && operand2 !== null && result !== null && key.classList.contains('operator')){
     result = operate(operand1,operand2,operator);
     if(Number.isInteger(result)){
       displayValue = result;
